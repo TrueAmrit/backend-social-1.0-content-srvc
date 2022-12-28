@@ -1,0 +1,6 @@
+[submodule "src/submodules/backend-social-1.0-entities"]
+	path = src/submodules/backend-social-1.0-entities
+	url = git@github.com:TrueAmrit/backend-social-1.0-entities.git
+[submodule "src/submodules/backend-social-1.0-dtos"]
+	path = src/submodules/backend-social-1.0-dtos
+	url = git@github.com:TrueAmrit/backend-social-1.0-dtos.git
