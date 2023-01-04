@@ -4,3 +4,6 @@
 [submodule "src/submodules/backend-social-1.0-dtos"]
 	path = src/submodules/backend-social-1.0-dtos
 	url = git@github.com:TrueAmrit/backend-social-1.0-dtos.git
+[submodule "src/submodules/backend-social-1.0-rmq"]
+	path = src/submodules/backend-social-1.0-rmq
+	url = git@github.com:TrueAmrit/backend-social-1.0-rmq.git
