@@ -1,5 +1,6 @@
-import { Controller, Delete, Get, Param } from '@nestjs/common';
+import { Controller, Delete, Get, Param, Query } from '@nestjs/common';
 import { EventPattern } from '@nestjs/microservices';
+import { query } from 'express';
 import { RMQPayloadDto } from 'src/submodules/backend-social-1.0-rmq/src/dtos/rmqPayload.dto';
 import { RmqTopics } from 'src/submodules/backend-social-1.0-rmq/src/enums/rmqTopics';
 import { ContentService } from './content.service';
@@ -48,6 +49,18 @@ export default class ContentController {
     } catch (err) {
       console.log(err);
       return err;
+    }
+  }
+
+  @Get('/user-profile')
+  async getContentByUser(@Query() query: { userId: number }) {
+    try {
+      const { userId } = query;
+      const fetchedContent = await this.contentService.getContentByUser(userId);
+
+      return fetchedContent;
+    } catch (error) {
+      console.log(error);
     }
   }
 }
