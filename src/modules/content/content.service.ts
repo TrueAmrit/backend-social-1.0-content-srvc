@@ -1,7 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ContentDto } from 'src/submodules/backend-social-1.0-dtos/src/dtos/content.dto';
+import { GroupDto } from 'src/submodules/backend-social-1.0-dtos/src/dtos/group.dto';
 import { Content } from 'src/submodules/backend-social-1.0-entities/src/entities/content.entity';
+import { Group } from 'src/submodules/backend-social-1.0-entities/src/entities/group.entity';
 import { Option } from 'src/submodules/backend-social-1.0-entities/src/entities/option.entity';
 import { User } from 'src/submodules/backend-social-1.0-entities/src/entities/user.entity';
 import { Repository } from 'typeorm';
@@ -15,16 +17,30 @@ export class ContentService {
     private userRepository: Repository<User>,
     @InjectRepository(Option)
     private optionRepository: Repository<Option>,
+    @InjectRepository(Group)
+    private groupRepository: Repository<Group>,
   ) {}
 
   async createContent(Content: ContentDto) {
     try {
       const ContentEntity = this.contentRepository.create(Content);
+      //for adding user
       const user = this.userRepository.create(Content.users[0]);
       ContentEntity.user = user;
+      //for adding groupID
+
+      if (Content.hasOwnProperty('groups')) {
+        const group = this.groupRepository.create(Content.groups[0]);
+
+        ContentEntity.group = group;
+      }
       //for adding option
-      const createdOptions = await this.optionRepository.save(Content.options);
-      ContentEntity.options = createdOptions;
+      if (Content.options) {
+        const createdOptions = await this.optionRepository.save(
+          Content.options,
+        );
+        ContentEntity.options = createdOptions;
+      }
       const createdContent = await this.contentRepository.save(ContentEntity);
       return createdContent;
     } catch (err) {

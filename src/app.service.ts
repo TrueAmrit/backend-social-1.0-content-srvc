@@ -5,13 +5,13 @@ import { ContentDto } from './submodules/backend-social-1.0-dtos/src/dtos/conten
 import { RMQPayloadDto } from './submodules/backend-social-1.0-rmq/src/dtos/rmqPayload.dto';
 import { PlatformEvents } from './submodules/backend-social-1.0-rmq/src/enums/platformEvents';
 import { RmqTopics } from './submodules/backend-social-1.0-rmq/src/enums/rmqTopics';
-import { MsgBrokerOpsService } from './submodules/backend-social-1.0-rmq/src/module/msg-broker-ops/msg-broker-ops.service';
+import { MsgBrokerService } from './submodules/backend-social-1.0-rmq/src/module/msg-broker-ops/msg-broker-ops.service';
 
 @Injectable()
 export class AppService {
   constructor(
     @Inject('CONTENT_SERVICE_QUEUE') private contentQueueClient: ClientProxy,
-    private readonly msgBrokerService: MsgBrokerOpsService,
+    private readonly msgBrokerService: MsgBrokerService,
   ) {}
 
   async createContent(content: ContentDto) {
