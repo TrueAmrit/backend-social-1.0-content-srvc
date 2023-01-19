@@ -7,6 +7,7 @@ import { ContentModule } from './modules/content/content.module';
 import { Content } from './submodules/backend-social-1.0-entities/src/entities/content.entity';
 import { Group } from './submodules/backend-social-1.0-entities/src/entities/group.entity';
 import { Option } from './submodules/backend-social-1.0-entities/src/entities/option.entity';
+import { Reaction } from './submodules/backend-social-1.0-entities/src/entities/reaction.entity';
 import { User } from './submodules/backend-social-1.0-entities/src/entities/user.entity';
 import { queues } from './submodules/backend-social-1.0-rmq/src/constants/rmqQueues';
 import { MsgBrokerService } from './submodules/backend-social-1.0-rmq/src/module/msg-broker-ops/msg-broker-ops.service';
@@ -20,8 +21,8 @@ import { MsgBrokerService } from './submodules/backend-social-1.0-rmq/src/module
       username: 'amritgupta1018',
       password: 'XOMjT6aq3Ibp',
       database: 'neondb',
-      entities: [User, Content, Option, Group],
-      synchronize: true,
+      entities: [User, Content, Option, Group, Reaction],
+      synchronize: false,
       logging: true,
       ssl: true,
     }),
@@ -40,6 +41,21 @@ import { MsgBrokerService } from './submodules/backend-social-1.0-rmq/src/module
         },
       },
     ]),
+    // ClientsModule.register([
+    //   {
+    //     name: 'REACTION_SERVICE_QUEUE',
+    //     transport: Transport.RMQ,
+    //     options: {
+    //       urls: [
+    //         'amqps://yscfodyg:cDk7kIHZOqn5qXqRYtmlHVwvC_2fQtb9@puffin.rmq2.cloudamqp.com/yscfodyg',
+    //       ],
+    //       queue: queues.REACTION_SERVICE_QUEUE,
+    //       queueOptions: {
+    //         durable: true,
+    //       },
+    //     },
+    //   },
+    // ]),
     ContentModule,
   ],
   controllers: [AppController],
